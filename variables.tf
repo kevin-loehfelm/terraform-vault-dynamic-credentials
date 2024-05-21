@@ -10,10 +10,6 @@ variable "terraform_workspace_name" {
   type = string
 }
 
-variable "vault_run_role_name" {
-  type = string
-}
-
-variable "vault_auth_path" {
+variable "terraform_run_phase" {
   type = string
 }
