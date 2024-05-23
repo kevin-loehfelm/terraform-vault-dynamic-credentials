@@ -1,8 +1,8 @@
 resource "vault_jwt_auth_backend" "this" {
   description        = "Terraform JWT auth for dynamic credentials"
   path               = var.vault_auth_path
-  oidc_discovery_url = var.terraform_fqdn
-  bound_issuer       = var.terraform_fqdn
+  oidc_discovery_url = var.terraform_addr
+  bound_issuer       = var.terraform_addr
 }
 
 # vault policy
@@ -15,18 +15,17 @@ resource "vault_policy" "this" {
 # vault jwt auth role
 resource "vault_jwt_auth_backend_role" "this" {
   backend   = vault_jwt_auth_backend.this.path
-  role_name = "terraform_admin"
+  role_name = var.vault_policy_name
   token_policies = [
     "default",
     vault_policy.this.name
   ]
-
   bound_audiences   = ["vault.workload.identity"]
   bound_claims_type = "glob"
   bound_claims = {
-    sub = "organization:${var.terraform_org_name}:project:${var.terraform_project_name}:workspace:${var.terraform_workspace_name}:run_phase:${var.terraform_run_phase}"
+    sub = var.terraform_subject_identifier
   }
   user_claim = "terraform_full_workspace"
   role_type  = "jwt"
-  token_ttl  = "300" # 5 minutes
+  token_ttl  = var.terraform_token_ttl
 }

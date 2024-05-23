@@ -1,30 +1,23 @@
-variable "terraform_fqdn" {
-  type    = string
-  default = "https://app.terraform.io"
-}
-
 variable "vault_auth_path" {
-  type    = string
-  default = "terraform_jwt"
+  type = string
 }
 
 variable "vault_policy_name" {
-  type    = string
-  default = "terraform_dynamic_credentials"
-}
-
-variable "terraform_org_name" {
   type = string
 }
 
-variable "terraform_project_name" {
+variable "vault_auth_role_name" {
   type = string
 }
 
-variable "terraform_workspace_name" {
+variable "terraform_addr" {
   type = string
 }
 
-variable "terraform_run_phase" {
+variable "terraform_subject_identifier" {
+  type = string
+}
+
+variable "terraform_token_ttl" {
   type = string
 }

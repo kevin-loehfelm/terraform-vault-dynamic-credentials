@@ -40,7 +40,7 @@ resource "tfe_variable" "enable_vault_auth" {
 
 resource "tfe_variable" "vault_run_role" {
   key             = "TFC_VAULT_RUN_ROLE"
-  value           = var.vault_run_role_name
+  value           = var.vault_auth_role_name
   category        = "env"
   description     = "Vault auth role"
   variable_set_id = tfe_variable_set.this.id
